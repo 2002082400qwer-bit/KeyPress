@@ -471,6 +471,21 @@
               <FileType>1</FileType>
               <FilePath>..\lib\SPI_Isr.c</FilePath>
             </File>
+            <File>
+              <FileName>STC8H_DMA.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\lib\STC8H_DMA.c</FilePath>
+            </File>
+            <File>
+              <FileName>STC8H_DMA_Isr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\lib\STC8H_DMA_Isr.c</FilePath>
+            </File>
+            <File>
+              <FileName>STC8H_DMA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\lib\STC8H_DMA.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -12,7 +12,7 @@ static void GPIO_config(void) {
     P2_MODE_OUT_PP(GPIO_Pin_3);
 }
 
-void	SPI_config(void){
+static void	SPI_config(void){
   
 	SPI_InitTypeDef		SPI_InitStructure;
 
@@ -34,7 +34,7 @@ void Ws2812_init(){
   GPIO_config();
   SPI_config();
   
-  SPSTAT = SPIF | WCOL;Led_clear();
+  SPSTAT = SPIF | WCOL;
   
 }
 

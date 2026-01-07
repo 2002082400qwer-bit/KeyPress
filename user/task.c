@@ -13,6 +13,7 @@ Task_t task_list[] = {
 //    {0,         500,        App_Task1},
     {0,          10,        App_keypress_task},
     {0,          10,        app_ws2812_task},
+    {0,          50,        app_wdt_task},
     
 };
 u8 task_len = sizeof(task_list) / sizeof(task_list[0]);

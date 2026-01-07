@@ -391,6 +391,11 @@
               <FileType>5</FileType>
               <FilePath>..\app\app.h</FilePath>
             </File>
+            <File>
+              <FileName>app_wdt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\app\app_wdt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -485,6 +490,11 @@
               <FileName>STC8H_DMA.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\lib\STC8H_DMA.h</FilePath>
+            </File>
+            <File>
+              <FileName>WDT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\lib\WDT.c</FilePath>
             </File>
           </Files>
         </Group>

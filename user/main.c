@@ -31,6 +31,8 @@ void main() {
     Task_init();
     EA = 1;
     
+    app_wdt_init();//初始化并开启看门狗
+  
     while(1) {
         Task_exec_handler();
     }

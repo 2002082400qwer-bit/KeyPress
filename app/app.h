@@ -19,4 +19,9 @@ extern u8	xdata  led_RGB[LED_NUM][3];
 void app_ws2812_init();
 void app_ws2812_task();
 
+//================= WDT ================
+
+void app_wdt_init();
+void app_wdt_task();
+
 #endif

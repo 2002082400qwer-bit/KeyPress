@@ -18,5 +18,8 @@ void Ws2812_init();
 void send();
 void Load_Data();
 void Led_clear();
+void bsp_ws2812_set_color(u16 index, u32 color);
+void bsp_ws2812_HSVtoRGB(double h, double s, double v, u8* r, u8* g, u8* b);
+void bsp_ws2812_HSVtoRGB24(double h, double s, double v, u32* rgb);
 
 #endif

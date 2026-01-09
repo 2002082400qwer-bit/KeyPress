@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\usb;..\lib;..\app</IncludePath>
+              <IncludePath>..\usb;..\lib;..\app;..\lib\oled</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -395,6 +395,11 @@
               <FileName>app_wdt.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\app\app_wdt.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_i2c_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\app\app_i2c_task.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -496,6 +501,21 @@
               <FileType>1</FileType>
               <FilePath>..\lib\WDT.c</FilePath>
             </File>
+            <File>
+              <FileName>I2C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\lib\I2C.c</FilePath>
+            </File>
+            <File>
+              <FileName>I2C_Isr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\lib\I2C_Isr.c</FilePath>
+            </File>
+            <File>
+              <FileName>oled.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\lib\oled\oled.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -555,6 +575,11 @@
               <FileName>ws2812.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\usb\ws2812.c</FilePath>
+            </File>
+            <File>
+              <FileName>Soft_I2C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\usb\Soft_I2C.c</FilePath>
             </File>
           </Files>
         </Group>

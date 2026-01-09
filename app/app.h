@@ -24,4 +24,9 @@ void app_ws2812_task();
 void app_wdt_init();
 void app_wdt_task();
 
+//================= I2C ================
+
+void app_i2c_init();
+void app_i2c_task();
+
 #endif

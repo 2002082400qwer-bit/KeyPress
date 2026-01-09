@@ -11,28 +11,26 @@ void app_ws2812_init(){
 }
 
 void app_ws2812_task(){
-  u8 i = 0;
-  static u8 g_color = 0;
-  static u8 r_color = 0;
-  static u8 b_color = 0;
+  u16 i = 0;
+  u32 rgb;
+  
+  static double hue = 0.0;       // 色相[0, 360)
+  static double saturation = 1.0; // 饱和度[0, 1]
+  static double value      = 0.9; // 亮度[0, 1]
   
   if(g_key_state_led == 0) return;
   g_key_state_led = 0;
   
   Led_clear();
   
+  hue += 10;
+  if(hue >= 360) hue = 0;
+  bsp_ws2812_HSVtoRGB24(hue, saturation, value, &rgb);
+  
   for(i = 0; i < 18; i++){
     if((status & (1L << i)) == 0){
-      led_RGB[i][0] = g_color;
-      led_RGB[i][1] = r_color;
-      led_RGB[i][2] = b_color;
+        bsp_ws2812_set_color(i, rgb);
     }
-    if(g_color > 255) g_color = g_color % 100;
-    if(r_color > 255) g_color = g_color % 100;
-    if(b_color > 255) g_color = g_color % 100;
-    g_color += 17;
-    r_color += 27;
-    b_color += 37;
     
   }
   Load_Data();

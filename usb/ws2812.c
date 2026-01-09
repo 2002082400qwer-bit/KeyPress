@@ -2,8 +2,18 @@
 #include "delay.h"
 #include "SPI.h"
 #include "NVIC.h"
-#include	"Switch.h"
-#include	"string.h"
+#include "Switch.h"
+#include "string.h"
+#include <math.h>
+
+#ifndef fmax
+#define fmax(a, b) (((a) > (b)) ? (a) : (b))
+#endif
+
+#ifndef fmin
+#define fmin(a, b) (((a) < (b)) ? (a) : (b))
+#endif
+
 
 u8	xdata  led_RGB[LED_NUM][3];	//LED对应的RGB，led_buff[i][0]-->绿，led_buff[i][1]-->红，led_buff[i][0]-->蓝.
 u8	xdata  led_SPI[SPI_NUM];	  //LED灯对应SPI字节数
@@ -84,3 +94,58 @@ void send(){
 	}
 }
 
+void bsp_ws2812_set_color(u16 index, u32 color){
+  // 分别取出 R, G, B
+  u8 R = (color >> 16) & 0xFF;
+  u8 G = (color >> 8) & 0xFF;
+  u8 B = (color >> 0) & 0xFF;
+  
+  led_RGB[index][0] = G;
+  led_RGB[index][1] = R;
+  led_RGB[index][2] = B;
+  
+}
+
+/**
+ * 将HSV颜色模式转成RGB
+ * hue：[0, 360)		色相：表示颜色，比如红橙黄绿青蓝紫
+ * saturation：[0, 100%]	饱和度：颜色的深浅、浓度、鲜艳程度。如红色可以分为深红、洋红、浅红等。
+ * value：[0, 100%]		明度：颜色的强度，明暗
+ * 
+ */
+void bsp_ws2812_HSVtoRGB(double h, double s, double v, u8* r, u8* g, u8* b) {
+    double r1, g1, b1;
+
+    double c = v * s;
+    double x = c * (1 - fabs(fmod(h / 60.0, 2) - 1));
+    double m = v - c;
+
+    h = fmod(h, 360.0); // Ensure h is in the range [0, 360)
+    s = fmax(0.0, fmin(1.0, s)); // Clamp s to [0, 1]
+    v = fmax(0.0, fmin(1.0, v)); // Clamp v to [0, 1]
+
+
+    if (h >= 0 && h < 60) {
+        r1 = c, g1 = x, b1 = 0;
+    } else if (h >= 60 && h < 120) {
+        r1 = x, g1 = c, b1 = 0;
+    } else if (h >= 120 && h < 180) {
+        r1 = 0, g1 = c, b1 = x;
+    } else if (h >= 180 && h < 240) {
+        r1 = 0, g1 = x, b1 = c;
+    } else if (h >= 240 && h < 300) {
+        r1 = x, g1 = 0, b1 = c;
+    } else {
+        r1 = c, g1 = 0, b1 = x;
+    }
+
+    *r = (u8)((r1 + m) * 255);
+    *g = (u8)((g1 + m) * 255);
+    *b = (u8)((b1 + m) * 255);
+}
+
+void bsp_ws2812_HSVtoRGB24(double h, double s, double v, u32* rgb) {
+    u8 r, g, b;
+    bsp_ws2812_HSVtoRGB(h, s, v, &r, &g, &b);
+    *rgb = ((u32)r << 16) | ((u32)g << 8) | b;
+}

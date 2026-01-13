@@ -13,6 +13,7 @@
 void usb_req_class();
 
 void usb_keyboard_send(u8 key[8]);
+void usb_class_out();
 
 void usb_get_report();
 void usb_set_report();

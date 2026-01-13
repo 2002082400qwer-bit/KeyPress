@@ -94,6 +94,14 @@ u8 key_map[18] = {
      0x55, 0x62, 0x37, 0x58
 };
 
+//PC out,MCU接收的PC数据
+//8位，第一位是小键盘锁，第二位是大小写锁，第三位是滚动锁
+u8 g_NUM_state = 0;
+void usb_keyboard_on_recv(u8 led){
+    if((led & 0x01) != 0) g_NUM_state = 1;
+    else g_NUM_state = 0;
+}
+
 void send_scandata(){
     u8 keys[8] = {0};
     u32 i = 0,pos = 2;

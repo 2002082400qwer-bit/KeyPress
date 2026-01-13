@@ -113,6 +113,16 @@ void usb_set_protocol()
     usb_setup_stall();
 }
 
+extern usb_keyboard_on_recv(u8 led);
+
+void usb_class_out(){
+    u8 led = 0;
+    if(usb_bulk_intr_out(UsbBuffer, 1) == 1){
+        led = UsbBuffer[0];
+        usb_keyboard_on_recv(led);
+    }
+}
+
 //外部键盘设备给PC发送消息函数（PC in）
 void usb_keyboard_send(u8 key[8]){
 	BYTE i;

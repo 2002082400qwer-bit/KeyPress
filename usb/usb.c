@@ -445,7 +445,8 @@ void usb_out_ep1()
     }
     if (csr & OUTOPRDY)
     {
-        usb_bulk_intr_in(UsbBuffer, usb_bulk_intr_out(UsbBuffer, 1), 1);    //功能测试,原路返回
+        usb_class_out();
+//        usb_bulk_intr_in(UsbBuffer, usb_bulk_intr_out(UsbBuffer, 1), 1);    //功能测试,原路返回
     }
 }
 #endif

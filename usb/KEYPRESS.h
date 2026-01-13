@@ -16,6 +16,7 @@
 #define ROW4 P07
 
 extern u32 status;
+extern u8 g_NUM_state;
 
 void KEYPRESS_INIT();
 

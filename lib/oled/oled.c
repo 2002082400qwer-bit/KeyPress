@@ -1,9 +1,7 @@
+
 #include "oled.h"
-#include "oledfont.h"  	 
-
-#include "Delay.h"
-#include "Soft_I2C.h"
-
+#include "oledfont.h"
+#include "Soft_I2C.h"	 
 //OLED的显存
 //存放格式如下.
 //[0]0 1 2 3 ... 127	
@@ -14,7 +12,6 @@
 //[5]0 1 2 3 ... 127	
 //[6]0 1 2 3 ... 127	
 //[7]0 1 2 3 ... 127 			   
-
 
 //反显函数
 void OLED_ColorTurn(u8 i)
@@ -40,43 +37,25 @@ void OLED_DisplayTurn(u8 i)
 	if(i==1)
 		{
 			OLED_WR_Byte(0xC0,OLED_CMD);//反转显示
-			OLED_WR_Byte(0xA1,OLED_CMD);
+			OLED_WR_Byte(0xA0,OLED_CMD);
 		}
 }
 
 
-#if 0
 //发送一个字节
 //向SSD1306写入一个字节。
 //mode:数据/命令标志 0,表示命令;1,表示数据;
 void OLED_WR_Byte(u8 dat,u8 mode)
 {
 	I2C_Start();
-	Send_Byte(0x78);
-	I2C_WaitAck();
-	if(mode == OLED_DATA){Send_Byte(0x40);}
-    else{Send_Byte(0x00);}
-	I2C_WaitAck();
-	Send_Byte(dat);
-	I2C_WaitAck();
+	I2C_WriteAbyte(0x78);
+	I2C_Check_ACK();
+	if(mode){I2C_WriteAbyte(0x40);}
+  else{I2C_WriteAbyte(0x00);}
+	I2C_Check_ACK();
+	I2C_WriteAbyte(dat);
+	I2C_Check_ACK();
 	I2C_Stop();
-}
-#endif
-
-
-//发送一个字节
-//向SSD1306写入一个字节。
-//mode:数据/命令标志 0,表示命令;1,表示数据;
-void OLED_WR_Byte(u8 dat,u8 mode)
-{
-    // 设备地址 0x78
-  if(mode == OLED_DATA){
-    // 寄存器地址 0x40
-    SI2C_WriteNbyte(0x78, 0x40, &dat, 1);
-  }else {
-    // 寄存器地址 0x00
-    SI2C_WriteNbyte(0x78, 0x00, &dat, 1);
-  }
 }
 
 //坐标设置
@@ -180,7 +159,7 @@ void OLED_ShowString(u8 x,u8 y,u8 *chr,u8 sizey)
 //显示汉字
 void OLED_ShowChinese(u8 x,u8 y,u8 no,u8 sizey)
 {
-	u16 i = 0,size1=(sizey/8+((sizey%8)?1:0))*sizey;
+	u16 i,size1=(sizey/8+((sizey%8)?1:0))*sizey;
 	for(i=0;i<size1;i++)
 	{
 		if(i%sizey==0) OLED_Set_Pos(x,y++);
@@ -203,7 +182,7 @@ void OLED_DrawBMP(u8 x,u8 y,u8 sizex, u8 sizey,u8 BMP[])
 	for(i=0;i<sizey;i++)
 	{
 		OLED_Set_Pos(x,i+y);
-        for(m=0;m<sizex;m++)
+    for(m=0;m<sizex;m++)
 		{      
 			OLED_WR_Byte(BMP[j++],OLED_DATA);	    	
 		}
@@ -226,7 +205,7 @@ void OLED_Init(void)
 	OLED_WR_Byte(0x81,OLED_CMD);//--set contrast control register
 	OLED_WR_Byte(0xCF,OLED_CMD); // Set SEG Output Current Brightness
 	OLED_WR_Byte(0xA1,OLED_CMD);//--Set SEG/Column Mapping     0xa0左右反置 0xa1正常
-	OLED_WR_Byte(0xC8,OLED_CMD);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常
+	OLED_WR_Byte(0xC0,OLED_CMD);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常
 	OLED_WR_Byte(0xA6,OLED_CMD);//--set normal display
 	OLED_WR_Byte(0xA8,OLED_CMD);//--set multiplex ratio(1 to 64)
 	OLED_WR_Byte(0x3f,OLED_CMD);//--1/64 duty

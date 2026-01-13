@@ -16,6 +16,8 @@ void app_wdt_init(){
 }
 
 void app_wdt_task(){
+  if(g_WDG != 1) return;
   WDT_Clear();    // Î¹¹·
+  g_WDG = 0;
 }
 

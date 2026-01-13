@@ -1,14 +1,20 @@
 #ifndef __OLED_H
 #define __OLED_H
 
-#include "Config.h"		  	 
+#include	"config.h"  	 
  
+#define  u8 unsigned char 
+#define  u16 unsigned int
+#define  u32 unsigned int
+	
 #define OLED_CMD  0	//写命令
 #define OLED_DATA 1	//写数据
 
 sbit OLED_SCL=P3^2;//SCL
 sbit OLED_SDA=P3^3;//SDA
 sbit OLED_RES =P1^2;//RES
+
+
 
 //-----------------OLED端口定义----------------
 
@@ -18,13 +24,12 @@ sbit OLED_RES =P1^2;//RES
 #define OLED_SDA_Clr() OLED_SDA=0
 #define OLED_SDA_Set() OLED_SDA=1
 
-#define OLED_RES_Clr() OLED_RES=0
-#define OLED_RES_Set() OLED_RES=1
+//#define OLED_RES_Clr() OLED_RES=0
+//#define OLED_RES_Set() OLED_RES=1
 
 
 
 //OLED控制用函数
-//void delay_ms(unsigned int ms);
 void OLED_ColorTurn(u8 i);
 void OLED_DisplayTurn(u8 i);
 void OLED_WR_Byte(u8 dat,u8 cmd);

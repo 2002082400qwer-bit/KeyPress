@@ -6,7 +6,7 @@
 #include "ws2812.h"
 
 //=================°´¼ü====================
-
+extern u8 g_WDG;
 extern u8 g_key_state_led;
 extern u32 status;
 

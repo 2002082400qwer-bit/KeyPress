@@ -19,7 +19,7 @@ u8	xdata  led_RGB[LED_NUM][3];	//LED对应的RGB，led_buff[i][0]-->绿，led_buff[i][
 u8	xdata  led_SPI[SPI_NUM];	  //LED灯对应SPI字节数
 
 static void GPIO_config(void) {
-    P2_MODE_OUT_PP(GPIO_Pin_3);
+    P1_MODE_OUT_PP(GPIO_Pin_3);
 }
 
 static void	SPI_config(void){
@@ -36,7 +36,7 @@ static void	SPI_config(void){
 	SPI_Init(&SPI_InitStructure);
 	NVIC_SPI_Init(DISABLE,Priority_2);		              //中断使能, ENABLE/DISABLE; 优先级(低到高) Priority_0,Priority_1,Priority_2,Priority_3
 	
-	SPI_SW(SPI_P22_P23_P24_P25);	                      //SPI_P12_P13_P14_P15,SPI_P22_P23_P24_P25,SPI_P54_P40_P41_P43,SPI_P35_P34_P33_P32
+	SPI_SW(SPI_P12_P13_P14_P15);	                      //SPI_P12_P13_P14_P15,SPI_P22_P23_P24_P25,SPI_P54_P40_P41_P43,SPI_P35_P34_P33_P32
 
 }
 
